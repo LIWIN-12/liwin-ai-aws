@@ -1,0 +1,58 @@
+{
+  "family": "liwin-ai",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "512",
+  "memory": "1024",
+  "executionRoleArn": "arn:aws:iam::<AWS_ACCOUNT_ID>:role/ecsTaskExecutionRole",
+  "taskRoleArn": "arn:aws:iam::<AWS_ACCOUNT_ID>:role/liwin-ai-task-role",
+  "containerDefinitions": [
+    {
+      "name": "liwin-ai",
+      "image": "<AWS_ACCOUNT_ID>.dkr.ecr.<AWS_REGION>.amazonaws.com/liwin-ai:<IMAGE_TAG>",
+      "essential": true,
+      "portMappings": [{ "containerPort": 7860, "protocol": "tcp" }],
+      "environment": [
+        { "name": "PORT", "value": "7860" },
+        { "name": "CHROMA_PATH", "value": "/var/data/chroma_db" },
+        { "name": "MEMORY_DB_PATH", "value": "/var/data/liwin_memory.db" },
+        { "name": "ALLOWED_ORIGINS", "value": "https://<YOUR_DOMAIN>" }
+      ],
+      "secrets": [
+        {
+          "name": "GEMINI_API_KEY",
+          "valueFrom": "arn:aws:secretsmanager:<AWS_REGION>:<AWS_ACCOUNT_ID>:secret:liwin-ai/gemini-api-key"
+        }
+      ],
+      "mountPoints": [{ "sourceVolume": "persistent-data", "containerPath": "/var/data", "readOnly": false }],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/liwin-ai",
+          "awslogs-region": "<AWS_REGION>",
+          "awslogs-stream-prefix": "app"
+        }
+      },
+      "healthCheck": {
+        "command": ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://127.0.0.1:7860/health', timeout=5)\""],
+        "interval": 30,
+        "timeout": 5,
+        "retries": 3,
+        "startPeriod": 60
+      }
+    }
+  ],
+  "volumes": [
+    {
+      "name": "persistent-data",
+      "efsVolumeConfiguration": {
+        "fileSystemId": "<EFS_FILE_SYSTEM_ID>",
+        "transitEncryption": "ENABLED",
+        "authorizationConfig": {
+          "accessPointId": "<EFS_ACCESS_POINT_ID>",
+          "iam": "ENABLED"
+        }
+      }
+    }
+  ]
+}

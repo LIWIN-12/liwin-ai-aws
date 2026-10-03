@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: liwai
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python -m backend.bootstrap && uvicorn backend.app:app --host 0.0.0.0 --port $PORT
+    disk:
+      name: liwai-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: CHROMA_PATH
+        value: /var/data/chroma_db
+      - key: MEMORY_DB_PATH
+        value: /var/data/liwin_memory.db

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Talk with J. K. Liwin Jose's portfolio assistant about projects, skills, experience, and career interests.">
+    <title>Liwin AI | Portfolio terminal</title>
+    <link rel="stylesheet" href="/css/style.css?v=terminal-logo-20261003">
+</head>
+<body>
+    <a class="skip-link" href="#chatBox">Skip to conversation</a>
+    <div class="terminal-frame">
+        <header class="terminal-topbar">
+            <a class="terminal-brand" href="/" aria-label="Liwin AI home">
+                <img src="/assets/logo-terminal.png" alt="" class="topbar-logo">
+                <span aria-hidden="true">[</span> LIWIN_AI <span aria-hidden="true">]</span>
+                <small>PORTFOLIO TERMINAL</small>
+            </a>
+            <div class="topbar-actions">
+                <span class="session-label">LOCAL SESSION</span>
+                <button id="newChatBtn" class="command-button" type="button">[ CLEAR ]</button>
+            </div>
+        </header>
+
+        <div class="terminal-layout">
+            <aside class="terminal-sidebar" aria-label="Portfolio profile">
+                <div class="identity-block">
+                    <img src="/assets/logo-terminal.png" alt="Liwin AI circuit monogram" class="terminal-logo">
+                    <p class="command-label">PROFILE</p>
+                    <h1>J.K.LIWIN JOSE</h1>
+                    <p class="terminal-role">SOFTWARE ANALYST<br>AI/ML + COMPUTER VISION</p>
+                </div>
+
+                <dl class="terminal-data">
+                    <div><dt>EDUCATION</dt><dd>B.TECH AI &amp; DS</dd></div>
+                    <div><dt>FOCUS</dt><dd>CV / RAG / ML</dd></div>
+                    <div><dt>LOCATION</dt><dd>INDIA</dd></div>
+                </dl>
+
+                <nav class="terminal-links" aria-label="Professional links">
+                    <a href="https://github.com/LIWIN-12" target="_blank" rel="noopener noreferrer">GITHUB <span aria-hidden="true">↗</span></a>
+                    <a href="https://www.linkedin.com/in/jkliwinjose" target="_blank" rel="noopener noreferrer">LINKEDIN <span aria-hidden="true">↗</span></a>
+                    <a href="https://huggingface.co/LIWIN-12" target="_blank" rel="noopener noreferrer">HUGGING FACE <span aria-hidden="true">↗</span></a>
+                </nav>
+            </aside>
+
+            <main class="terminal-console" aria-label="Liwin AI conversation">
+                <div class="console-header">
+                    <span>PORTFOLIO QUERY INTERFACE</span>
+                    <span class="console-ready">READY</span>
+                </div>
+
+                <div id="chatBox" class="console-output" role="log" aria-live="polite" aria-relevant="additions"></div>
+
+                <form id="chatForm" class="console-input">
+                    <label class="visually-hidden" for="message">Chat with Liwin AI</label>
+                    <span class="prompt" aria-hidden="true">liwin@portfolio:~$</span>
+                    <textarea id="message" rows="1" maxlength="2000" placeholder="ask about my work..." aria-describedby="chatHint"></textarea>
+                    <button id="sendBtn" class="send-button" type="submit">RUN</button>
+                </form>
+                <p id="chatHint" class="console-hint">ENTER: SEND &nbsp;|&nbsp; SHIFT + ENTER: NEW LINE</p>
+            </main>
+        </div>
+
+        <footer class="terminal-footer">
+            <span>LIWIN AI REPRESENTS J. K. LIWIN JOSE IN FIRST PERSON.</span>
+            <span>QUESTIONS ARE ANSWERED FROM THE PORTFOLIO KNOWLEDGE BASE.</span>
+        </footer>
+    </div>
+    <script src="/js/app.js?v=5"></script>
+</body>
+</html>
