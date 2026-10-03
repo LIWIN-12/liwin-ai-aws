@@ -9,6 +9,7 @@ import time
 from functools import lru_cache
 
 import chromadb
+from chromadb.config import Settings as ChromaSettings
 from google import genai
 from google.genai import types
 
@@ -38,7 +39,10 @@ def _gemini_client() -> genai.Client:
 def _chroma_client() -> chromadb.PersistentClient:
     settings = get_settings()
     settings.chroma_path.mkdir(parents=True, exist_ok=True)
-    return chromadb.PersistentClient(path=str(settings.chroma_path))
+    return chromadb.PersistentClient(
+        path=str(settings.chroma_path),
+        settings=ChromaSettings(anonymized_telemetry=False),
+    )
 
 
 def get_collection():

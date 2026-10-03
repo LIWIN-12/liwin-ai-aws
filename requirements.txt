@@ -1,10 +1,17 @@
 fastapi>=0.100.0
 uvicorn>=0.22.0
-chromadb>=0.4.0
+# Pin ChromaDB to the 0.5 line. Newer 1.x releases pull optional server-side
+# dependencies that are unnecessary for this embedded PersistentClient setup.
+chromadb==0.5.23
+# Chroma 0.5 uses the pre-4.x PostHog capture API. Keeping this compatible
+# avoids background telemetry errors during app startup.
+posthog<4
 google-genai>=0.1.0
 python-dotenv>=1.0.0
 pydantic>=2.0.0
-streamlit>=1.25.0
+# The Streamlit client in frontend/ is an optional local-development tool. The
+# production UI is the static frontend served by FastAPI, so do not ship its
+# large data/visualization dependency tree in the API image.
 pypdf>=3.10.0
 requests>=2.31.0
 groq>=1.0.0
